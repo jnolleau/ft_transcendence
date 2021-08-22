@@ -1,7 +1,8 @@
 .DS_Store
 en.subject.pdf
 node_modules
+dist
 build
 npm-debug.log
-.env
 postgres_data
+# .env
