@@ -19,12 +19,10 @@ services:
       - backend
     environment:
       NODE_ENV: development
-      SERVER_PORT: 3000
-      DB_PORT: 5432
-      DB_PASSWORD: root
-      DB_USERNAME: root
-      DB_DATABASE_NAME: ft_transcendence
-      MODE: DEV
+      # MODE: DEV
+      # SERVER_PORT: 3000
+    env_file:
+    - backend.env
     command: "npm run start:dev"
     depends_on:
       - postgres
