@@ -24,8 +24,8 @@ services:
     env_file:
     - backend.env
     command: "npm run start:dev"
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
   
   # frontend Service with express framework
   frontend:
@@ -35,16 +35,18 @@ services:
        NODE_VERSION: ${NODE_VERSION}
     volumes:
       - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
     ports:
       - "8081:8080"
-    working_dir: /usr/src/app
     networks:
       - backend
     environment:
       NODE_ENV: development
-    command: "node server.js"
-    depends_on:
-      - postgres
+      NAME: Julien
+    command: "npm run serve"
+    # depends_on:
+    #   - postgres
   
 
   # PostgreSQL Service
@@ -54,7 +56,9 @@ services:
       - backend
     restart: on-failure
     environment:
+      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     container_name: ${POSTGRES_NAME}
