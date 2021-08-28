@@ -2,10 +2,10 @@ ARG NODE_VERSION
 FROM node:${NODE_VERSION}
 
 WORKDIR /usr/src/app
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install -g npm
-RUN npm install
+# RUN npm install -g npm
+# RUN npm install
 # RUN vue upgrade
 
 

@@ -1,4 +1,4 @@
-# 
+# timer-game
 
 ## Project setup
 ```
