@@ -69,15 +69,11 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-      # PG_DATA: /var/lib/postgresql/data
-    # command: "/bin/sh /usr/local/bin/entrypoint.sh"
-    # command: "tail -f"
-    # ports:
-    #   - "5432:5432"
     volumes:
       - ./postgredata:/var/lib/postgresql/data
     container_name: ${POSTGRES_NAME}
 
+  # Pgadmin Service
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -85,22 +81,49 @@ services:
       - "8000:80"
     links:
       - "postgres"
-    # env_file:
-    #   - env
     environment:
       PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
       PGADMIN_DEFAULT_EMAIL: j.nolleau88@gmail.com
     networks: 
       - backend
-    # command: "tail -f"
     depends_on:
       - postgres
+
+  # Adminer Service
+  adminer:
+    image: adminer:${ADMINER_VERSION}
+    networks:
+      - backend
+    restart: on-failure
+    ports:
+      - "8001:8080"
+    environment:
+      ADMINER_DEFAULT_DB_DRIVER: ${DB_HOST}
+      ADMINER_DEFAULT_SERVER: ${DB_HOST}
+      ADMINER_DEFAULT_DB_NAME: ${DB_NAME}
+    volumes:
+      - adminerdata:/var/www/html
+    depends_on:
+      - postgres
+    # container_name: "${ADMINER_NAME}"
     
+
+  # # Phppgadmin Service
+  # phppgadmin:
+  #   image: bitnami/phppgadmin:${PHPPGADMIN_VERSION}
+  #   ports:
+  #     - '8002:8080'
+  #     # - '443:8443'
+  #   networks:
+  #    - backend
+  #   depends_on:
+  #     - postgres
 
   # Networks
 networks:
   backend:
 
 #   # Volumes
-# volumes:
+volumes:
+  adminerdata:
 #   postgredata:
