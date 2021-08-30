@@ -2,30 +2,31 @@ version: '3'
 
 services:
 
-  # # backend Service with express framework
-  # backend:
-  #   build:
-  #     context: "./backend"
-  #     # target: development
-  #     args:
-  #      NODE_VERSION: ${NODE_VERSION}
-  #   volumes:
-  #     - ./backend:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   ports:
-  #     - "8080:3000"
-  #     # - "9229:9229"
-  #   networks:
-  #     - backend
-  #   environment:
-  #     NODE_ENV: development
-  #     # MODE: DEV
-  #     # SERVER_PORT: 3000
-  #   env_file:
-  #   - backend.env
-  #   command: "npm run start:dev"
-  #   # depends_on:
-  #   #   - postgres
+  # backend Service with express framework
+  backend:
+    build:
+      context: "./backend"
+      # target: development
+      args:
+       NODE_VERSION: ${NODE_VERSION}
+    user: "${UID}:${GID}"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+      # - "9229:9229"
+    networks:
+      - backend
+    environment:
+      NODE_ENV: development
+      MODE: DEV
+      # SERVER_PORT: 3000
+    env_file:
+    - backend.env
+    command: "npm run start:dev"
+    depends_on:
+      - postgres
   
   # frontend Service with express framework
   frontend:
@@ -33,37 +34,68 @@ services:
       context: "./frontend"
       args:
        NODE_VERSION: ${NODE_VERSION}
+    user: "${UID}:${GID}"
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
     working_dir: /usr/src/app
     ports:
-      - "8081:8080"
-      - "3000:3000" #For json-server (development)
+    ports:
+      - "8080:8080"
+      - "5000:3000" #For json-server (development)
     networks:
       - backend
     environment:
       NODE_ENV: development
       NAME: Julien
-    # command: "npm run serve"
-    command: "tail -f"
-    # depends_on:
-    #   - postgres
+    command: "npm run serve"
+    # command: "tail -f"
+    depends_on:
+      - postgres
   
 
-  # # PostgreSQL Service
-  # postgres:
-  #   image: postgres:${POSTGRES_VERSION}
-  #   networks:
-  #     - backend
-  #   restart: on-failure
-  #   environment:
-  #     POSTGRES_USER: ${DB_USERNAME}
-  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
-  #     POSTGRES_DB: ${DB_NAME}
-  #   volumes:
-  #     - ./postgres_data:/var/lib/postgresql/data
-  #   container_name: ${POSTGRES_NAME}
+  # PostgreSQL Service
+  postgres:
+    # image: postgres:${POSTGRES_VERSION}
+    build:
+      context: "./postgres"
+      args:
+       POSTGRES_VERSION: ${POSTGRES_VERSION}
+    # user: "postgres"
+    networks:
+      - backend
+    restart: on-failure
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      # PG_DATA: /var/lib/postgresql/data
+    # command: "/bin/sh /usr/local/bin/entrypoint.sh"
+    # command: "tail -f"
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - ./postgredata:/var/lib/postgresql/data
+    container_name: ${POSTGRES_NAME}
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - "8000:80"
+    links:
+      - "postgres"
+    # env_file:
+    #   - env
+    environment:
+      PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: j.nolleau88@gmail.com
+    networks: 
+      - backend
+    # command: "tail -f"
+    depends_on:
+      - postgres
+    
 
   # Networks
 networks:

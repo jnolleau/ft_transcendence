@@ -1,79 +1,57 @@
 <template>
-  <h1>{{ title }}</h1>
-  <p>Welcome !</p>
-  <teleport to="#modals" v-if="showModal">
-      <Modal theme="none" @close="toggleModal(1)">
-        <template v-slot:links>
-          <a href="#">singin</a>
-          <a href="#">give up</a>
-        </template>
-      <h1>Signin or leave !</h1>
-      <p>Mouhaaha, so you signin ?</p>
-    </Modal>
-  </teleport>
-  <teleport to="#modals" v-if="showModal2">
-      <Modal theme="sale" @close="toggleModal(2)">
-        <template v-slot:choice>
-          <a href="#">This one?</a>
-          <a href="#">or this one?</a>
-        </template>
-      <h1>Will you try one link ? </h1>
-    </Modal>
-  </teleport>
-  <button @Click="toggleModal(1)">Open modal 1</button>
-  <button @Click="toggleModal(2)">Open modal 2</button>
-  <p>Here a refs test:</p>
-  <div>
-    <input type="text" ref="name">
-    <button @Click="handleClick">CLick me</button>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link :to="{ name: 'About'}">About</router-link> |
+    <router-link :to="{ name: 'Jobs'}">Jobs</router-link>
   </div>
+
+  <button @click="redirect">Redirect</button>
+  <button @click="back">Go back</button>
+  <button @click="forward">Go Forward</button>
+
+  <router-view/>
 </template>
 
 <script>
-import Modal from './components/Modal.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Modal
-  },
-  data() {
-    return {
-      title: 'My first Vue Site',
-      header: 'Youhou signup or leave!',
-      text: 'here is the modal content!',
-      showModal: false,
-      showModal2: false
+  export default {
+    methods: {
+      redirect() {
+        this.$router.push({ name: 'Home' })
+      },
+      back() {
+        this.$router.go(-1)
+      },
+      forward() {
+        this.$router.go(1)
+      }
     }
-  },
-  methods: {
-    handleClick() {
-      this.$refs.name.classList.toggle('active')
-      this.$refs.name.focus()
-    },
-    toggleModal(nbr) {
-      console.log('toggle modal ' + nbr)
-      if (nbr == 1)
-        this.showModal =  !this.showModal
-      else
-        this.showModal2 =  !this.showModal2
-    },
   }
-}
 </script>
 
 <style>
-#app, #modals {
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
-h1 {
-  border-bottom: 1px solid #ddd;
-  display: inline-block;
-  padding-bottom: 10px;
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+button {
+  margin: 0 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
 }
 </style>
