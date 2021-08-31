@@ -15,16 +15,17 @@ services:
       - /usr/src/app/node_modules
     ports:
       - "3000:3000"
-      # - "9229:9229"
+      # - "9229:9229" #debug address
     networks:
       - backend
     environment:
       NODE_ENV: development
       MODE: DEV
-      # SERVER_PORT: 3000
+      PORT: 3000
     env_file:
     - backend.env
     command: "npm run start:dev"
+    # command: "tail -f"
     depends_on:
       - postgres
   

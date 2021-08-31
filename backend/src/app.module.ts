@@ -15,18 +15,4 @@ import { configService } from './config/config.service';
   providers: [AppService],
 })
 
-// @Module({
-//   imports: [
-//     TypeOrmModule.forRoot({
-//       type: 'postgres',
-//       host: 'postgres',
-//       port: 5432,
-//       username: 'root',
-//       password: 'root',
-//       database: 'ft_transcendence_db',
-//       entities: [],
-//       synchronize: true,
-//     }),
-// })
-
 export class AppModule {}

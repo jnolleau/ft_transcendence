@@ -7,11 +7,13 @@ export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
   @Get()
-  getJobs(): Jobs[] {
+  public async getJobs(): Promise<Jobs[]> {
+    await this.jobsService.setJobs();
     return this.jobsService.getJobs();
   }
+
   @Get(':id')
-  getJob(@Param('id') id: number): Jobs {
-    return this.jobsService.getJob(id);
+  public async getJob(@Param('id') id: number): Promise<Jobs> {
+    return await this.jobsService.getJob(id);
   }
 }

@@ -1,20 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { Jobs } from './interfaces/jobs.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { JobsEntity } from '../entity/jobs.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class JobsService {
-	jobs : Jobs[] = [
-		{ "title": "job 1", "id": 1, "details": "Details of the first job" },
-		{ "title": "job 2", "id": 2, "details": "Details of the 2nd job" },
-		{ "title": "job 3", "id": 3, "details": "Details of the 3rd job" },
-		{ "title": "job 4", "id": 4, "details": "Details of the 4th job" }
-	];
-	getJobs(): Jobs[] {
+	constructor(@InjectRepository(JobsEntity) private readonly repo: Repository<JobsEntity>) { }
+	
+	// Attributs
+	jobs : Jobs[] = [];
+
+	public async setJobs() {
+		this.jobs = await this.repo.find();
+	}
+
+	public getJobs(): Jobs[] {
 		return this.jobs;
 	}
-	getJob(id : number): Jobs {
-		var filtered = this.jobs.filter(item => item.id == id);
-		console.log(filtered);
-		return filtered[0];
+
+	public async getJob(id : number): Promise<Jobs> {
+		return await this.repo.findOne(id);
+	}
+	
+	// public getJob(id : number): Jobs {
+	// 	var filtered = this.jobs.filter(item => item.id == id);
+	// 	console.log(filtered);
+	// 	return filtered[0];
+	// }
+	
+	private async getAll(): Promise<Jobs[]> {
+		return await this.repo.find();
 	}
 }

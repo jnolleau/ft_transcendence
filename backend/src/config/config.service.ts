@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+// import { join } from 'path';
 // import { Injectable } from '@nestjs/common';
 
 // @Injectable()
@@ -46,17 +47,18 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
       
-      entities: ['**/*.entity{.ts,.js}'],
+      entities: [__dirname + '/../entity/*.{ts,js}'],
 
       migrationsTableName: 'migration',
 
-      migrations: ['src/migration/*.ts'],
-
+      migrations: [__dirname + '/../migration/*.{ts,js}'],
+      
       cli: {
-        migrationsDir: 'src/migration',
+        migrationsDir: 'src/migration'
       },
 
       ssl: this.isProduction(),
+      synchronize: false
     };
   }
 
