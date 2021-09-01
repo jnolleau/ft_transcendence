@@ -1,5 +1,5 @@
 import { createConnection, createQueryBuilder, ConnectionOptions } from 'typeorm';
-import { JobsEntity } from '../entity/jobs.entity';
+import { JobsEntity } from '../jobs/entity/jobs.entity';
 import { configService } from '../config/config.service';
 
 async function run() {
@@ -9,7 +9,10 @@ async function run() {
     .insert()
     .into(JobsEntity)
     .values([
-      { title: "Job4", details: "details for job 4" }, 
+      { title: "Job1", details: "details for Job1" }, 
+      { title: "Job2", details: "details for Job2" }, 
+      { title: "Job3", details: "details for Job3" }, 
+      { title: "Job4", details: "details for Job4" } 
       ])
     .execute();    
   })

@@ -5,4 +5,5 @@ dist
 build
 npm-debug.log
 postgres_data
+postgresdata
 # .env

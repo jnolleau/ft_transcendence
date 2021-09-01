@@ -23,7 +23,7 @@ services:
       MODE: DEV
       PORT: 3000
     env_file:
-    - backend.env
+    - database.env
     command: "npm run start:dev"
     # command: "tail -f"
     depends_on:
@@ -57,12 +57,11 @@ services:
 
   # PostgreSQL Service
   postgres:
-    # image: postgres:${POSTGRES_VERSION}
-    build:
-      context: "./postgres"
-      args:
-       POSTGRES_VERSION: ${POSTGRES_VERSION}
-    # user: "postgres"
+    image: postgres:${POSTGRES_VERSION}
+    # build:
+    #   context: "./postgres"
+    #   args:
+    #    POSTGRES_VERSION: ${POSTGRES_VERSION}
     networks:
       - backend
     restart: on-failure
@@ -71,7 +70,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./postgredata:/var/lib/postgresql/data
+      - postgresdata:/var/lib/postgresql/data
+      - ./postgres/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh:ro
     container_name: ${POSTGRES_NAME}
 
   # Pgadmin Service
@@ -79,7 +79,7 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4
     ports:
-      - "8000:80"
+      - "8001:80"
     links:
       - "postgres"
     environment:
@@ -97,7 +97,7 @@ services:
       - backend
     restart: on-failure
     ports:
-      - "8001:8080"
+      - "8000:8080"
     environment:
       ADMINER_DEFAULT_DB_DRIVER: ${DB_HOST}
       ADMINER_DEFAULT_SERVER: ${DB_HOST}
@@ -127,4 +127,4 @@ networks:
 #   # Volumes
 volumes:
   adminerdata:
-#   postgredata:
+  postgresdata:

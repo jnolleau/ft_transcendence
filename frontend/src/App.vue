@@ -2,7 +2,8 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link :to="{ name: 'About'}">About</router-link> |
-    <router-link :to="{ name: 'Jobs'}">Jobs</router-link>
+    <router-link :to="{ name: 'Jobs'}">Jobs</router-link> |
+    <router-link :to="{ name: 'AddJob'}">Add Job</router-link>
   </div>
 
   <button @click="redirect">Redirect</button>
@@ -53,5 +54,9 @@ button {
   padding: 10px;
   border: none;
   border-radius: 4px;
+}
+button:hover {
+  background: #42b983;
+  cursor: pointer;
 }
 </style>

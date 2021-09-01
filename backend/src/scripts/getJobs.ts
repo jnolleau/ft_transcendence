@@ -1,5 +1,5 @@
 import { createConnection, createQueryBuilder, ConnectionOptions } from 'typeorm';
-import { JobsEntity } from '../entity/jobs.entity';
+import { JobsEntity } from '../jobs/entity/jobs.entity';
 import { configService } from '../config/config.service';
 
 function run() {
