@@ -1,4 +1,4 @@
-# router-example
+# app
 
 ## Project setup
 ```

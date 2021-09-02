@@ -2,14 +2,13 @@ version: '3'
 
 services:
 
-  # backend Service with express framework
+  # backend Service with nestjs-express framework
   backend:
     build:
       context: "./backend"
-      # target: development
       args:
        NODE_VERSION: ${NODE_VERSION}
-    user: "${UID}:${GID}"
+    # user: "${UID}:${GID}"
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
@@ -17,7 +16,7 @@ services:
       - "3000:3000"
       # - "9229:9229" #debug address
     networks:
-      - backend
+      - network
     environment:
       NODE_ENV: development
       MODE: DEV
@@ -29,13 +28,13 @@ services:
     depends_on:
       - postgres
   
-  # frontend Service with express framework
+  # frontend Service with vuejs framework
   frontend:
     build:
       context: "./frontend"
       args:
        NODE_VERSION: ${NODE_VERSION}
-    user: "${UID}:${GID}"
+    # user: "${UID}:${GID}"
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
@@ -45,7 +44,7 @@ services:
       - "8080:8080"
       - "5000:3000" #For json-server (development)
     networks:
-      - backend
+      - network
     environment:
       NODE_ENV: development
       NAME: Julien
@@ -63,38 +62,22 @@ services:
     #   args:
     #    POSTGRES_VERSION: ${POSTGRES_VERSION}
     networks:
-      - backend
+      - network
     restart: on-failure
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - postgresdata:/var/lib/postgresql/data
-      - ./postgres/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh:ro
+      - ./postgresdata:/var/lib/postgresql/data
+      # - ./postgres/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh:ro
     container_name: ${POSTGRES_NAME}
-
-  # Pgadmin Service
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    ports:
-      - "8001:80"
-    links:
-      - "postgres"
-    environment:
-      PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
-      PGADMIN_DEFAULT_EMAIL: j.nolleau88@gmail.com
-    networks: 
-      - backend
-    depends_on:
-      - postgres
 
   # Adminer Service
   adminer:
     image: adminer:${ADMINER_VERSION}
     networks:
-      - backend
+      - network
     restart: on-failure
     ports:
       - "8000:8080"
@@ -107,24 +90,28 @@ services:
     depends_on:
       - postgres
     # container_name: "${ADMINER_NAME}"
-    
 
-  # # Phppgadmin Service
-  # phppgadmin:
-  #   image: bitnami/phppgadmin:${PHPPGADMIN_VERSION}
+  # # Pgadmin Service
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4
   #   ports:
-  #     - '8002:8080'
-  #     # - '443:8443'
-  #   networks:
-  #    - backend
+  #     - "8001:80"
+  #   links:
+  #     - "postgres"
+  #   environment:
+  #     PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
+  #     PGADMIN_DEFAULT_EMAIL: j.nolleau88@gmail.com
+  #   networks: 
+  #     - backend
   #   depends_on:
   #     - postgres
 
   # Networks
 networks:
-  backend:
+  network:
 
 #   # Volumes
 volumes:
   adminerdata:
-  postgresdata:
+  # postgresdata:
