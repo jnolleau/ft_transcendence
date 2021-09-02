@@ -8,7 +8,7 @@ services:
       context: "./backend"
       args:
        NODE_VERSION: ${NODE_VERSION}
-    # user: "${UID}:${GID}"
+    user: "${UID}:${GID}"
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
@@ -34,7 +34,7 @@ services:
       context: "./frontend"
       args:
        NODE_VERSION: ${NODE_VERSION}
-    # user: "${UID}:${GID}"
+    user: "${UID}:${GID}"
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
@@ -57,10 +57,6 @@ services:
   # PostgreSQL Service
   postgres:
     image: postgres:${POSTGRES_VERSION}
-    # build:
-    #   context: "./postgres"
-    #   args:
-    #    POSTGRES_VERSION: ${POSTGRES_VERSION}
     networks:
       - network
     restart: on-failure
@@ -70,7 +66,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
-      # - ./postgres/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh:ro
     container_name: ${POSTGRES_NAME}
 
   # Adminer Service
