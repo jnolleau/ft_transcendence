@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!responseData">
     <h1>Enter new job</h1>
     <form @submit.prevent="handleSubmit">
       <label>Title:</label>
@@ -12,13 +12,18 @@
       </div>
     </form>
   </div>
+  <SubmitSuccess v-else :title="title" :details="details" />
 </template>
 
 <script>
 import axios from 'axios';
+import SubmitSuccess from '@/components/SubmitSuccess.vue'
 
 export default {
   name: 'AddJob',
+  components: {
+    SubmitSuccess
+  },
   data() {
   	return {
   		title: '',
@@ -28,7 +33,7 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      await axios.post('http://localhost:3000/jobs',{
+      await axios.post('http://localhost:3000/jobs', {
         title: this.title,
         details: this.details
       })
@@ -36,6 +41,9 @@ export default {
       .catch(error => {});
       console.log('responseData: ', this.responseData)
     }
+  },
+  mounted() {
+    this.responseData = null;
   }
 }
 </script>
