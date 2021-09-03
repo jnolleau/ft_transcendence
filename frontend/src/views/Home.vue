@@ -6,7 +6,7 @@
     </div>
   </div>
   <div v-else>
-    <p>loading some data...</p>
+    <p>Loading some data...</p>
   </div>
 </template>
 

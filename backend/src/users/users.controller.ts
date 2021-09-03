@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
+import { CreateUsersDto } from './dto/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -18,17 +19,7 @@ export class UsersController {
 	}
 
 	@Post()
-	saveUser(@Body() newUser : User) {
-		console.log(newUser);
-		this.userService.saveUser(newUser);
+	public async saveUser(@Body() newUser : CreateUsersDto) : Promise<CreateUsersDto> {
+		return await this.userService.saveUser(newUser);
 	}
-
-
-
-
-// 	@Post()
-// 	public async saveJob(@Body() newJob : CreateJobsDto) {
-// 		console.log('newJob', newJob);
-//     return await this.jobsService.saveJob(newJob); //On return newJob
-// }
 }

@@ -9,7 +9,7 @@ function run() {
     const userToUpdate = await userRepository.findOne(4);
     userToUpdate.name = "Henry";
     await userRepository.save(userToUpdate);
-    console.log(userToUpdate);
+    console.log('userToUpdate', userToUpdate);
   })
 }
 
