@@ -13,12 +13,14 @@ export class UsersService {
 		private readonly UsersRepository: Repository<Users>,
 		) { }
 
-	public getUsers() : Promise<User[]> {
-		return this.UsersRepository.find();
+	async getUsers() : Promise<User[]> {
+		return await this.UsersRepository.find();
 	}
 
-	public getUserbyId(id : number) : Promise<User> {
-		return this.UsersRepository.findOne(id);
+	async getUserbyId(id : number) : Promise<User> {
+		let res = await this.UsersRepository.findOne(id);
+		console.log('res', res)
+		return res;
 	}
 
 	public async saveUser(newUser : CreateUserDto) : Promise<User> {

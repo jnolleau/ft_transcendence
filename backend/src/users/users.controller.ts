@@ -1,48 +1,62 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/createUser.dto';
-import { ApiCreatedResponse } from '@nestjs/swagger';
-import { UpdateUserDto } from './dto/updateUser.dto';
+import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+// import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Controller('users')
 export class UsersController {
-	constructor(private readonly userService: UsersService) {}
+	constructor(private readonly userService: UsersService) { }
 
-
+	/**
+	* List all users in database.
+	*/
 	@Get()
-	@ApiCreatedResponse({
-		description: 'List all users in database',
-		type: [User],
-	  })
-	getUsers(): Promise<User[]> {
-		return this.userService.getUsers();
+	async getUsers(): Promise<User[]> {
+		const users: User[] = await this.userService.getUsers()
+		if (users == undefined) {
+			throw new NotFoundException('No users in database');
+		}
+		return users;
 	}
 
+	/**
+	* Return a user found in database by id.
+	*/
 	@Get(':id')
-	@ApiCreatedResponse({
-		description: 'The user has been found in database.',
+	@ApiOkResponse({
+		description: 'The user has been found in database',
 		type: User,
-	  })
-	getUser(@Param('id') id: number): Promise<User> {
-		return this.userService.getUserbyId(id);
+	})
+	@ApiNotFoundResponse({
+		description: 'User not found',
+	})
+	@ApiBadRequestResponse({
+		description: 'Invalid ID supplied',
+	})
+	async getUser(@Param('id') id: number): Promise<User> {
+		const user: User = await this.userService.getUserbyId(id)
+		if (user == undefined) {
+			throw new NotFoundException('User not found');
+		}
+		return user;
 	}
 
+	/**
+	* The user has been successfully created.
+	*/
 	@Post()
-	@ApiCreatedResponse({
-		description: 'The user has been successfully created.',
-		type: User,
-	  })
-	async saveUser(@Body() newUser : CreateUserDto) : Promise<User> {
+	async saveUser(@Body() newUser: CreateUserDto): Promise<User> {
 		return await this.userService.saveUser(newUser);
 	}
 
-	@Post()
-	@ApiCreatedResponse({
-		description: 'The user has been successfully updated.',
-		type: User,
-	  })
-	async updateUser(@Body() updatedUser : UpdateUserDto) : Promise<User> {
-		return await this.userService.updateUser(updatedUser);
-	}
+	// @Post()
+	// @ApiCreatedResponse({
+	// 	description: 'The user has been successfully updated.',
+	// 	type: User,
+	//   })
+	// async updateUser(@Body() updatedUser : UpdateUserDto) : Promise<User> {
+	// 	return await this.userService.updateUser(updatedUser);
+	// }
 }

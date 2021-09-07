@@ -4,7 +4,10 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({credentials: true, origin: "http://localhost:8080"}); // Mandatory to interact w vue js which is on a different port
+  app.enableCors({
+    credentials: true,
+    origin: ["http://localhost:8080", "http://127.0.0.1:8080"]
+  }); // Mandatory to interact w vue js which is on a different port
   
   const config = new DocumentBuilder()
     .setTitle('ft_transcendence API')
