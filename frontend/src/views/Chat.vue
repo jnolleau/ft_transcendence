@@ -62,17 +62,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onDeactivated, onUnmounted, reactive, ref, watch } from "vue";
+import { defineComponent, reactive, ref, watch } from "vue";
 import { io } from "socket.io-client";
 import { Message } from "@/types/Message";
 import { Info } from "@/types/Info";
 
+const socket = io("http://localhost:3000");
 
 export default defineComponent({
   name: "Chat",
   components: {},
+  beforePageLeave() {
+    console.log("beforePageLeave");
+    socket.emit("leave", 'a user');
+  },
+  beforeRouteLeave() {
+    console.log("beforeRouteLeave");
+    socket.emit("leave", 'a user');
+  },
   setup() {
-    const socket = io("http://localhost:3000");
     const newMessage = ref("");
     const messages = reactive<Message[]>([]);
     const typing = ref("");
@@ -135,7 +143,7 @@ export default defineComponent({
         : socket.emit("stopTyping");
     });
 
-    function send() {
+    const send = () => {
       messages.push({
         message: newMessage.value,
         type: 0,
@@ -149,7 +157,7 @@ export default defineComponent({
       newMessage.value = "";
     }
 
-    function addUser() {
+    const addUser = () => {
       ready.value = true;
       socket.emit("join", username.value);
     }
