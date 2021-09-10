@@ -17,10 +17,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import SubmitSuccess from "@/components/SubmitSuccess.vue";
+import { defineComponent } from "vue";
+import { axios } from "axios";
+import { SubmitSuccess } from "@/components/SubmitSuccess.vue";
 
-export default {
+export default defineComponent({
   data() {
     return {
       name: '',
@@ -43,7 +44,7 @@ export default {
       console.log("responseData: ", this.responseData);
     },
   }
-};
+});
 </script>
 <style scoped>
 form {

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "api": "rm -rf gen/api && npx @openapitools/openapi-generator-cli generate -i api.yaml --generator-name typescript-axios -o gen/api && cd gen/api && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -12,7 +13,8 @@
     "eslint-plugin-vue": "^7.17.0",
     "socket.io-client": "^4.2.0",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "typescript-axios": "file:sdk" 
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

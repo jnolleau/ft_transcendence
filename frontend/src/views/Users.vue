@@ -11,23 +11,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import { User } from "@/types/User";
+import { DefaultApi } from "@/../sdk/typescript-axios-client-generated";
 
 export default defineComponent({
   name: "Users",
-  components: {},
-  data() {
-    return {
-      users: []
-    }
-  },
-  mounted() {
-    fetch("http://localhost:3000/users")
-      .then((res) => res.json())
-      .then((data) => (this.users = data))
-      .catch((err) => console.log(err.message));
+  setup() {
+    const users = ref<User[]>([]);
+    const config = {
+      basePath: 'http://localhost:3000',
+    };
+    const api = new DefaultApi(config);
+
+    onMounted(() => {
+      api.usersControllerGetUsers()
+        .then(res => (users.value = res.data))
+        .catch(err => console.log(err.message));
+    });
+  
+    // onMounted(() => {
+    //   fetch("http://localhost:3000/users")
+    //     .then((res) => res.json())
+    //     .then((data) => (users.value = data))
+    //     .catch((err) => console.log(err.message));
+    // });
+
+    return { users };
   },
 });
+
+// import { defineComponent } from "vue";
+// import { User } from "@/types/User";
+
+// export default defineComponent({
+//   name: "Users",
+//   components: {},
+//   data() {
+//     return {
+//       users: [] as User[]
+//     }
+//   },
+//   mounted() {
+//     fetch("http://localhost:3000/users")
+//       .then((res) => res.json())
+//       .then((data) => (this.users = data))
+//       .catch((err) => console.log(err.message));
+//   },
+// });
 </script>
 
 <style>
