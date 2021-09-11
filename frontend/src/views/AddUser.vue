@@ -16,10 +16,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
-import { axios } from "axios";
-import { SubmitSuccess } from "@/components/SubmitSuccess.vue";
+import axios from "axios";
+import SubmitSuccess from "@/components/SubmitSuccess.vue";
 
 export default defineComponent({
   data() {

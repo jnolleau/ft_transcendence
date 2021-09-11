@@ -1,5 +1,13 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import api from "@/plugins/api.plugin";
 
-createApp(App).use(router).mount('#app')
+// Config for the sdk
+const config = {
+  basePath: process.env.VUE_APP_API_URL,
+};
+
+createApp(App).use(router)
+  .use(api, config)
+  .mount('#app')

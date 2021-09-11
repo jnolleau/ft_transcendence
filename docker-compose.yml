@@ -49,7 +49,7 @@ services:
       - network
     environment:
       NODE_ENV: development
-      NAME: Julien
+      VUE_APP_API_URL: ${API_URL}
     command: "npm run serve"
     # command: "tail -f"
     depends_on:

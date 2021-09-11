@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "ft_trancendence",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
     "socket.io-client": "^4.2.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "typescript-axios": "file:sdk" 
+    "typescript-axios": "file:sdk/typescript-axios-client-generated/"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
