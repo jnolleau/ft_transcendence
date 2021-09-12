@@ -3,12 +3,15 @@ FROM node:${NODE_VERSION}
 
 WORKDIR /usr/src/app
 
+RUN npm install -g @vue/cli
+
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY package*.json ./
 
 RUN npm install
 
+USER node
 
 ## Ressource pour installer un nouveau projet vue.js
 # npm install -g @vue/cli

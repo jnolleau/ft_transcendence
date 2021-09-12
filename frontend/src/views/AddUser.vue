@@ -12,38 +12,44 @@
     </form>
   </div>
   <div v-else>
-    <SubmitSuccess :name="name" :surname="surname"/>
+    <SubmitSuccess :name="name" :surname="surname" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, inject, ref } from "vue";
 import axios from "axios";
 import SubmitSuccess from "@/components/SubmitSuccess.vue";
 
 export default defineComponent({
-  data() {
-    return {
-      name: '',
-      surname: '',
-      responseData: null,
-    };
-  },
   components: {
-    SubmitSuccess
+    SubmitSuccess,
   },
-  methods: {
-    async handleSubmit() {
-      await axios
-        .post("http://localhost:3000/users", {
-          name: this.name,
-          surname: this.surname,
+  setup() {
+    const api = inject("api") as any;
+    const name = ref("");
+    const surname = ref("");
+    const responseData = ref(null);
+
+    const handleSubmit = async () => {
+      api.usersControllerSaveUser({
+          name: name.value,
+          surname: surname.value,
         })
-        .then((response) => (this.responseData = response.data))
-        .catch((error) => {});
-      console.log("responseData: ", this.responseData);
-    },
-  }
+        .then((res: any) => (responseData.value = res.data))
+        .catch((err: any) => console.log(err.message));
+
+      // await axios
+      //   .post("http://localhost:3000/users", {
+      //     name: name.value,
+      //     surname: surname.value,
+      //   })
+      //   .then((response) => (responseData.value = response.data))
+      //   .catch((error) => {});
+    };
+
+    return { name, surname, responseData, handleSubmit };
+  },
 });
 </script>
 <style scoped>

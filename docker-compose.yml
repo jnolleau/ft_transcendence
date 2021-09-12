@@ -8,10 +8,10 @@ services:
       context: "./backend"
       args:
        NODE_VERSION: ${NODE_VERSION}
-    user: "${UID}:${GID}"
     volumes:
       - ./backend:/usr/src/app
-      - ./backend/node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
+      # - ./backend/node_modules:/usr/src/app/node_modules
     ports:
       - "3000:3000"
       - "5000:5000"
@@ -35,11 +35,10 @@ services:
       context: "./frontend"
       args:
        NODE_VERSION: ${NODE_VERSION}
-    # user: "${UID}:${GID}"
     volumes:
       - ./frontend:/usr/src/app
-      - ./frontend/node_modules:/usr/src/app/node_modules
-      # - /usr/src/app/node_modules
+      # - ./frontend/node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
     working_dir: /usr/src/app
     ports:
     ports:
