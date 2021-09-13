@@ -10,8 +10,6 @@ services:
        NODE_VERSION: ${NODE_VERSION}
     volumes:
       - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
-      # - ./backend/node_modules:/usr/src/app/node_modules
     ports:
       - "3000:3000"
       - "5000:5000"
@@ -37,10 +35,6 @@ services:
        NODE_VERSION: ${NODE_VERSION}
     volumes:
       - ./frontend:/usr/src/app
-      # - ./frontend/node_modules:/usr/src/app/node_modules
-      - /usr/src/app/node_modules
-    working_dir: /usr/src/app
-    ports:
     ports:
       - "8080:8080"
       # - "5000:3000" #For json-server (development)
@@ -107,7 +101,7 @@ services:
 networks:
   network:
 
-#   # Volumes
+  # Volumes
 volumes:
   adminerdata:
   # postgresdata:

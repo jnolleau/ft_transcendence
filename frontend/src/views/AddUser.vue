@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, inject, ref } from "vue";
-import axios from "axios";
+// import axios from "axios";
 import SubmitSuccess from "@/components/SubmitSuccess.vue";
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
     const responseData = ref(null);
 
     const handleSubmit = async () => {
-      api.usersControllerSaveUser({
+      await api.usersControllerSaveUser({
           name: name.value,
           surname: surname.value,
         })

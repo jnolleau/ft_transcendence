@@ -3,13 +3,11 @@ FROM node:${NODE_VERSION}
 
 WORKDIR /usr/src/app
 
-RUN npm install -g @vue/cli
+# RUN npm install -g @vue/cli
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-COPY package*.json ./
-
-RUN npm install
+COPY package.json ./
 
 USER node
 

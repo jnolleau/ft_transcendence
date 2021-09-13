@@ -3,13 +3,11 @@ FROM node:${NODE_VERSION}
 
 WORKDIR /usr/src/app
 
-RUN npm install -g @nestjs/cli
+# RUN npm install -g @nestjs/cli
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-COPY package*.json ./
-
-RUN npm install
+COPY package.json ./
 
 USER node
 
