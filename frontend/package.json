@@ -11,10 +11,10 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "eslint-plugin-vue": "^7.17.0",
+    "sdk-client": "sdk/typescript-axios-client-generated/",
     "socket.io-client": "^4.2.0",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
-    "typescript-axios": "file:sdk/typescript-axios-client-generated/"
+    "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@vue/cli": "~4.5.13",

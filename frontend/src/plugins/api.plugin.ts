@@ -1,4 +1,4 @@
-import { DefaultApi } from "@/../sdk/typescript-axios-client-generated";
+import { DefaultApi } from "sdk-client";
 
 export default {
   install: (app: any, config: any) => {
