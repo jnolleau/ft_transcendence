@@ -9,5 +9,5 @@ const config = {
 };
 
 createApp(App).use(router)
-  .use(api, config)
+  // .use(api, config)
   .mount('#app')

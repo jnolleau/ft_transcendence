@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * ft_transcendence API
- * Because we are the best
+ * Because we will nail it !
  *
  * OpenAPI spec version: 1.0
  * 

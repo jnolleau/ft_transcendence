@@ -20,16 +20,19 @@
 import { defineComponent, inject, ref } from "vue";
 // import axios from "axios";
 import SubmitSuccess from "@/components/SubmitSuccess.vue";
+import { DefaultApi } from "sdk-client";
+
 
 export default defineComponent({
   components: {
     SubmitSuccess,
   },
   setup() {
-    const api = inject("api") as any;
+    // const api = inject("api") as any;
     const name = ref("");
     const surname = ref("");
     const responseData = ref(null);
+    const api = new DefaultApi();
 
     const handleSubmit = async () => {
       await api.usersControllerSaveUser({

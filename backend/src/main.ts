@@ -14,9 +14,9 @@ async function bootstrap() {
   //Setting up the OpenApi to generate client sdk
   const config = new DocumentBuilder()
     .setTitle('ft_transcendence API')
-    .setDescription('Because we are the best')
+    .setDescription('Because we will nail it !')
     .setVersion('1.0')
-    // .addTag('cats')
+    .addServer('http://localhost:' + process.env.PORT)
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
@@ -32,6 +32,6 @@ async function bootstrap() {
   // }
   ////////////////////////////////////////
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * ft_transcendence API
- * Because we are the best
+ * Because we will nail it !
  *
  * OpenAPI spec version: 1.0
  * 
@@ -16,7 +16,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
-export const BASE_PATH = "/".replace(/\/+$/, "");
+export const BASE_PATH = "http://localhost:3000".replace(/\/+$/, "");
 
 /**
  *
