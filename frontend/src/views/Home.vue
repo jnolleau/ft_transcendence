@@ -1,4 +1,4 @@
 <template>
-  <h1>Welcome</h1>
-  <h2>TEST</h2>
+  <h1>ft_transcendence preliminaries</h1>
+  <h2>Welcome</h2>
 </template>

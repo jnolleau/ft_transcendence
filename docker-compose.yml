@@ -63,7 +63,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./postgresdata:/var/lib/postgresql/data
+      - ./postgres/postgresdata:/var/lib/postgresql/data
     container_name: ${POSTGRES_NAME}
 
   # Adminer Service
