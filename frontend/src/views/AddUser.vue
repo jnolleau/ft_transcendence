@@ -35,7 +35,7 @@ export default defineComponent({
     const api = new DefaultApi();
 
     const handleSubmit = async () => {
-      await api.usersControllerSaveUser({
+      await api.saveUser({
           name: name.value,
           surname: surname.value,
         })

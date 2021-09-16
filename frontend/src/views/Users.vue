@@ -28,7 +28,7 @@ export default defineComponent({
     const api = new DefaultApi();
 
     onMounted(() => {
-      api.usersControllerGetUsers()
+      api.getUsers()
         .then((res: any) => (users.value = res.data))
         .catch((err: any) => console.log(err.message));
     });

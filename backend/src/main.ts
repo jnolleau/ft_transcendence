@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as fs from "fs";
 // declare const module: any; // For Hot-Module Replacement
@@ -18,7 +18,13 @@ async function bootstrap() {
     .setVersion('1.0')
     .addServer('http://localhost:' + process.env.PORT)
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const options: SwaggerDocumentOptions =  {
+      operationIdFactory: (
+        controllerKey: string,
+        methodKey: string
+      ) => methodKey
+    };
+  const document = SwaggerModule.createDocument(app, config, options);
 
   // To save the api specification in root
   fs.writeFileSync("./api-spec.json", JSON.stringify(document));

@@ -29,7 +29,40 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appControllerGetHello: async (options: any = {}): Promise<RequestArgs> => {
+        create: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/favicon.ico`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                query.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getHello: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -63,10 +96,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersControllerGetUser: async (id: number, options: any = {}): Promise<RequestArgs> => {
+        getUser: async (id: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling usersControllerGetUser.');
+                throw new RequiredError('id','Required parameter id was null or undefined when calling getUser.');
             }
             const localVarPath = `/users/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
@@ -101,7 +134,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersControllerGetUsers: async (options: any = {}): Promise<RequestArgs> => {
+        getUsers: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -135,10 +168,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersControllerSaveUser: async (body: CreateUserDto, options: any = {}): Promise<RequestArgs> => {
+        saveUser: async (body: CreateUserDto, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling usersControllerSaveUser.');
+                throw new RequiredError('body','Required parameter body was null or undefined when calling saveUser.');
             }
             const localVarPath = `/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -185,8 +218,20 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async appControllerGetHello(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).appControllerGetHello(options);
+        async create(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).create(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getHello(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getHello(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -198,8 +243,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersControllerGetUser(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).usersControllerGetUser(id, options);
+        async getUser(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getUser(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -210,8 +255,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersControllerGetUsers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
-            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).usersControllerGetUsers(options);
+        async getUsers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getUsers(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -223,8 +268,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersControllerSaveUser(body: CreateUserDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).usersControllerSaveUser(body, options);
+        async saveUser(body: CreateUserDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).saveUser(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -244,8 +289,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appControllerGetHello(options?: any): AxiosPromise<string> {
-            return DefaultApiFp(configuration).appControllerGetHello(options).then((request) => request(axios, basePath));
+        create(options?: any): AxiosPromise<void> {
+            return DefaultApiFp(configuration).create(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getHello(options?: any): AxiosPromise<string> {
+            return DefaultApiFp(configuration).getHello(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -253,16 +306,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersControllerGetUser(id: number, options?: any): AxiosPromise<User> {
-            return DefaultApiFp(configuration).usersControllerGetUser(id, options).then((request) => request(axios, basePath));
+        getUser(id: number, options?: any): AxiosPromise<User> {
+            return DefaultApiFp(configuration).getUser(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersControllerGetUsers(options?: any): AxiosPromise<Array<User>> {
-            return DefaultApiFp(configuration).usersControllerGetUsers(options).then((request) => request(axios, basePath));
+        getUsers(options?: any): AxiosPromise<Array<User>> {
+            return DefaultApiFp(configuration).getUsers(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -270,8 +323,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersControllerSaveUser(body: CreateUserDto, options?: any): AxiosPromise<User> {
-            return DefaultApiFp(configuration).usersControllerSaveUser(body, options).then((request) => request(axios, basePath));
+        saveUser(body: CreateUserDto, options?: any): AxiosPromise<User> {
+            return DefaultApiFp(configuration).saveUser(body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -289,8 +342,17 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public appControllerGetHello(options?: any) {
-        return DefaultApiFp(this.configuration).appControllerGetHello(options).then((request) => request(this.axios, this.basePath));
+    public create(options?: any) {
+        return DefaultApiFp(this.configuration).create(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getHello(options?: any) {
+        return DefaultApiFp(this.configuration).getHello(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -299,8 +361,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public usersControllerGetUser(id: number, options?: any) {
-        return DefaultApiFp(this.configuration).usersControllerGetUser(id, options).then((request) => request(this.axios, this.basePath));
+    public getUser(id: number, options?: any) {
+        return DefaultApiFp(this.configuration).getUser(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -308,8 +370,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public usersControllerGetUsers(options?: any) {
-        return DefaultApiFp(this.configuration).usersControllerGetUsers(options).then((request) => request(this.axios, this.basePath));
+    public getUsers(options?: any) {
+        return DefaultApiFp(this.configuration).getUsers(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -318,7 +380,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public usersControllerSaveUser(body: CreateUserDto, options?: any) {
-        return DefaultApiFp(this.configuration).usersControllerSaveUser(body, options).then((request) => request(this.axios, this.basePath));
+    public saveUser(body: CreateUserDto, options?: any) {
+        return DefaultApiFp(this.configuration).saveUser(body, options).then((request) => request(this.axios, this.basePath));
     }
 }
