@@ -12,7 +12,6 @@ services:
       - ./backend:/usr/src/app
     ports:
       - "3000:3000"
-      - "5000:5000"
       # - "9229:9229" #debug address
     networks:
       - network
@@ -63,7 +62,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./postgres/postgresdata:/var/lib/postgresql/data
+      - ./postgresdata:/var/lib/postgresql/data
     container_name: ${POSTGRES_NAME}
 
   # Adminer Service
