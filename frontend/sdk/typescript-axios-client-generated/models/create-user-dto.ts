@@ -22,11 +22,17 @@ export interface CreateUserDto {
      * @type {string}
      * @memberof CreateUserDto
      */
-    name: any;
+    firstname: any;
     /**
      * 
      * @type {string}
      * @memberof CreateUserDto
      */
-    surname: any;
+    lastname: any;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUserDto
+     */
+    password: any;
 }

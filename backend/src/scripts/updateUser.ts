@@ -7,7 +7,7 @@ function run() {
   .then(async connection => {
     const userRepository = connection.getRepository(Users);
     const userToUpdate = await userRepository.findOne(4);
-    userToUpdate.name = "Henry";
+    userToUpdate.firstname = "Henry";
     await userRepository.save(userToUpdate);
     console.log('userToUpdate', userToUpdate);
   })

@@ -7,10 +7,15 @@ export class CreateUserDto {
 	/**
 	* The name of the created user
 	*/
-	readonly name: string;
+	readonly firstname: string;
 	
 	/**
 	* The last name of the created user
 	*/
-	readonly surname: string
+	readonly lastname: string
+
+	/**
+	* The password of the created user
+	*/
+	readonly password: string;
 }

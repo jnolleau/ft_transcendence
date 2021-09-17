@@ -23,7 +23,9 @@ export class UsersService {
 		return res;
 	}
 
-	public async saveUser(newUser : CreateUserDto) : Promise<User> {
+	public async saveUser(newUser : CreateUserDto) : Promise<User> { // newUser must be of type User or CreateUserDto ??
+		let userWithSalt: User = newUser as User;
+		userWithSalt.salt = "salt";
 		return await this.UsersRepository.save(newUser);
 	}
 

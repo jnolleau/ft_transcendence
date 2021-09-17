@@ -9,10 +9,10 @@ async function run() {
     .insert()
     .into(Users)
     .values([
-      { name: "Roger", surname: "Federer" },
-      { name: "Rafa", surname: "Nadal" },
-      { name: "Andy", surname: "Murray" },
-      { name: "Novak", surname: "Djokovic" }
+      { firstname: "Roger", lastname: "Federer", password: "password", salt: "salt" },
+      { firstname: "Rafa", lastname: "Nadal", password: "password", salt: "salt" },
+      { firstname: "Andy", lastname: "Murray", password: "password", salt: "salt" },
+      { firstname: "Novak", lastname: "Djokovic", password: "password", salt: "salt" }
     ])
     .execute();
   })

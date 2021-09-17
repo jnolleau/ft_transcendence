@@ -2,7 +2,7 @@
   <h1>Best Tennis Players</h1>
   <div v-if="users.length">
     <div v-for="user in users" :key="user.id" class="user">
-      <h2>{{ user.name }} {{ user.surname }}</h2>
+      <h2>{{ user.firstname }} {{ user.lastname }}</h2>
     </div>
   </div>
   <div v-else>

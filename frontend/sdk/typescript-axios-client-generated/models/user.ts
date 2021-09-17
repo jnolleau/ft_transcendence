@@ -28,11 +28,23 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    name: any;
+    firstname: any;
     /**
      * 
      * @type {string}
      * @memberof User
      */
-    surname: any;
+    lastname: any;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    password: any;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    salt: any;
 }

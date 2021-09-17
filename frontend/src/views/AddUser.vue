@@ -3,16 +3,18 @@
     <h1>ADD USER</h1>
     <form @submit.prevent="handleSubmit">
       <label>Name</label>
-      <input type="text" v-model="name" />
-      <label>Surname</label>
-      <input type="text" v-model="surname" />
+      <input type="text" v-model="firstname" />
+      <label>Lastname</label>
+      <input type="text" v-model="lastname" />
+      <label>Password</label>
+      <input type="text" v-model="password" />
       <div>
         <button>Save User</button>
       </div>
     </form>
   </div>
   <div v-else>
-    <SubmitSuccess :name="name" :surname="surname" />
+    <SubmitSuccess :name="firstname" :surname="lastname" />
   </div>
 </template>
 
@@ -29,29 +31,32 @@ export default defineComponent({
   },
   setup() {
     // const api = inject("api") as any;
-    const name = ref("");
-    const surname = ref("");
+    const firstname = ref("");
+    const lastname = ref("");
+    const password = ref("");
     const responseData = ref(null);
     const api = new DefaultApi();
 
     const handleSubmit = async () => {
       await api.saveUser({
-          name: name.value,
-          surname: surname.value,
+          firstname: firstname.value,
+          lastname: lastname.value,
+          password: password.value,
         })
         .then((res: any) => (responseData.value = res.data))
         .catch((err: any) => console.log(err.message));
 
       // await axios
       //   .post("http://localhost:3000/users", {
-      //     name: name.value,
-      //     surname: surname.value,
+      //     firstname: firstname.value,
+      //     lastname: lastname.value,
+      //     password: password.value,
       //   })
       //   .then((response) => (responseData.value = response.data))
       //   .catch((error) => {});
     };
 
-    return { name, surname, responseData, handleSubmit };
+    return { firstname, lastname, password, responseData, handleSubmit };
   },
 });
 </script>
