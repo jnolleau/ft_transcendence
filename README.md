@@ -23,4 +23,12 @@ If errors occures after a git pull:
 ```sh
 $ ./reset.sh
 ```
+### The front is made of four routes:
+- `/`: simply welcome
+- `/users`: list all the users in database
+- `/adduser`: allows to add user in database
+- `/chat`: after entering a random username, a chat module is available. To test it, simply open a second window, enter a username and lets test
+
+In a nutshell, the front communicates with the backend API via an sdk, generated thanks to the [OpenApi module (@nestjs/swagger)](https://docs.nestjs.com/openapi/introduction) nested by NestJs and the [swagger editor](https://editor.swagger.io/).  
+The chat is working with the [Websocket module (@nestjs/websockets)](https://docs.nestjs.com/websockets/gateways) in backside and the [socket.io-client](https://socket.io/docs/v4/) in frontside.
 
