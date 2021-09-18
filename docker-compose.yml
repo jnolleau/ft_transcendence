@@ -65,7 +65,7 @@ services:
       - ./postgresdata:/var/lib/postgresql/data
     container_name: ${POSTGRES_NAME}
 
-  # Adminer Service
+  # Adminer Service (database management tool)
   adminer:
     image: adminer:${ADMINER_VERSION}
     networks:
@@ -81,7 +81,7 @@ services:
       - postgres
     # container_name: "${ADMINER_NAME}"
 
-  # # Pgadmin Service
+  # # Pgadmin Service (database management tool)
   # pgadmin:
   #   container_name: pgadmin
   #   image: dpage/pgadmin4
