@@ -5,31 +5,47 @@ import { Repository } from 'typeorm';
 import { Users } from './entity/users.entity';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
 	constructor(
 		@InjectRepository(Users)
 		private readonly UsersRepository: Repository<Users>,
-		) { }
+	) { }
 
-	async getUsers() : Promise<User[]> {
+	/**
+	* Lists all users in database
+	*/
+	async getUsers(): Promise<User[]> {
 		return await this.UsersRepository.find();
 	}
 
-	async getUserbyId(id : number) : Promise<User> {
+	/**
+	* Gets a user in database by its id
+	*/
+	async getUserbyId(id: number): Promise<User> {
 		let res = await this.UsersRepository.findOne(id);
 		console.log('res', res)
 		return res;
 	}
 
-	public async saveUser(newUser : CreateUserDto) : Promise<User> { // newUser must be of type User or CreateUserDto ??
-		let userWithSalt: User = newUser as User;
-		userWithSalt.salt = "salt";
+	/**
+	* Saves a new user into db after generating pw hash and salt
+	*/
+	async saveUser(userDto: CreateUserDto): Promise<User> { // newUser must be of type User or CreateUserDto ??
+		const newUser: User = userDto as User;
+		
+		newUser.salt = await bcrypt.genSalt();
+		newUser.password = await bcrypt.hash(newUser.password, newUser.salt);
+		
 		return await this.UsersRepository.save(newUser);
 	}
-
-	public async updateUser(updatedUser : UpdateUserDto) : Promise<User> {
+	
+	/**
+	* Updates a user into db
+	*/
+	async updateUser(updatedUser: UpdateUserDto): Promise<User> {
 		return await this.UsersRepository.save(updatedUser);
 	}
 }
