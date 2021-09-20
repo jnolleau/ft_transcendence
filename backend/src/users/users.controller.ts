@@ -10,7 +10,7 @@ export class UsersController {
 	constructor(private readonly userService: UsersService) { }
 
 	/**
-	* List all users in database.
+	* Lists all users in database.
 	*/
 	@Get()
 	async getUsers(): Promise<User[]> {
@@ -22,7 +22,7 @@ export class UsersController {
 	}
 
 	/**
-	* Return a user found in database by id.
+	* Returns a user found in database by its id.
 	*/
 	@Get(':id')
 	@ApiOkResponse({
@@ -44,7 +44,7 @@ export class UsersController {
 	}
 
 	/**
-	* The user has been successfully created.
+	* Save a new user to database from the POST body
 	*/
 	@Post()
 	async saveUser(@Body() newUser: CreateUserDto): Promise<User> {

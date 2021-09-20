@@ -26,7 +26,8 @@
     "typeorm:migration:run": "npm run typeorm -- migration:run",
     "start:dev:db:seed": "ts-node -r tsconfig-paths/register src/scripts/seedUsers.ts",
     "start:dev:db:get": "ts-node -r tsconfig-paths/register src/scripts/getUsers.ts",
-    "start:dev:db:update": "ts-node -r tsconfig-paths/register src/scripts/updateUser.ts"
+    "start:dev:db:update": "ts-node -r tsconfig-paths/register src/scripts/updateUser.ts",
+    "start:dev:db:empty": "ts-node -r tsconfig-paths/register src/scripts/emptyUsersTable.ts"
   },
   "dependencies": {
     "@nestjs/cli": "^8.1.1",

@@ -15,7 +15,8 @@ export class UsersService {
 	) { }
 
 	/**
-	* Lists all users in database
+	 * Lists all users in database
+	 * nb: find() is a function from the typeORM library
 	*/
 	async getUsers(): Promise<User[]> {
 		return await this.UsersRepository.find();
@@ -23,16 +24,18 @@ export class UsersService {
 
 	/**
 	* Gets a user in database by its id
+	* nb: findOne(id) is a function from the typeORM library
 	*/
 	async getUserbyId(id: number): Promise<User> {
 		let res = await this.UsersRepository.findOne(id);
 		console.log('res', res)
 		return res;
 	}
-
+	
 	/**
-	* Saves a new user into db after generating pw hash and salt
-	*/
+	 * Saves a new user into db after generating pw hash and salt
+	 * nb: save(user) is a function from the typeORM library
+	 */
 	async saveUser(userDto: CreateUserDto): Promise<User> { // newUser must be of type User or CreateUserDto ??
 		const newUser: User = userDto as User;
 		
@@ -43,7 +46,8 @@ export class UsersService {
 	}
 	
 	/**
-	* Updates a user into db
+	 * Updates a user into db
+	 * nb: save(user) is a function from the typeORM library
 	*/
 	async updateUser(updatedUser: UpdateUserDto): Promise<User> {
 		return await this.UsersRepository.save(updatedUser);

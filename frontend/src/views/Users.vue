@@ -1,5 +1,5 @@
 <template>
-  <h1>Best Tennis Players</h1>
+  <h1>List of all users in database</h1>
   <div v-if="users.length">
     <div v-for="user in users" :key="user.id" class="user">
       <h2>{{ user.firstname }} {{ user.lastname }}</h2>
