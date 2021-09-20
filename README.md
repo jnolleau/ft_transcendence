@@ -73,3 +73,23 @@ NB: these `.vue` files code for different "pages" of our website. Becareful, the
 
   - `./types`: simply contains some interfaces to create some custom types (ie. the *User* type).  
   - `./router`: contains a kind of config file which handles routes, used in *App.vue*.
+## Some ressources
+
+### Vue.js 3
+**Official documentation**: https://v3.vuejs.org/guide/introduction.html  
+**The Net Ninja tutorial on Youtube**: https://www.outube.com/watch?v=YrxBCBibVo0&list=PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1  
+**The Complete Guide to Vue 3 Plug-ins**: https://www.codemag.com/Article/2103071/The-Complete-Guide-to-Vue-3-Plug-ins-Part-2
+
+### Node js
+**npm global or local packages**: https://nodejs.dev/learn/npm-global-or-local-packages
+
+### Database handling
+**TypeORM Entities**: https://typeorm.io/#/entities  
+**Use TypeORM with NEstJS**: https://docs.nestjs.com/techniques/database
+
+### Chat ans WebSocket
+**Socket.IO official documentation**: https://socket.io/docs/v4
+**Build a Real-time Chat App with Vue 3, Socket.io and Nodejs**: https://masteringbackend.com/posts/build-a-real-time-chat-app-with-vue-3-socket-io-and-nodejs/
+
+### Generals
+**Build a NestJS - Vue.js app from scratch**: https://scotch.io/tutorials/building-a-modern-app-using-nestjs-mongodb-and-vuejs#toc-what-you-ll-build
