@@ -80,6 +80,10 @@ NB: these `.vue` files code for different "pages" of our website. Becareful, the
 **The Net Ninja tutorial on Youtube**: https://www.outube.com/watch?v=YrxBCBibVo0&list=PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1  
 **The Complete Guide to Vue 3 Plug-ins**: https://www.codemag.com/Article/2103071/The-Complete-Guide-to-Vue-3-Plug-ins-Part-2
 
+### NestJS
+**Official documentation**: https://docs.nestjs.com/  
+**codeconcept tutorial on Youtube (french)**: https://www.youtube.com/watch?v=PMva3v8K6h4&list=PLs_WqGRq69UiSaXX85NRUX4rkeiNP3K6l
+
 ### Node js
 **npm global or local packages**: https://nodejs.dev/learn/npm-global-or-local-packages
 
