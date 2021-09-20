@@ -89,10 +89,10 @@ NB: these `.vue` files code for different "pages" of our website. Becareful, the
 
 ### Database handling
 **TypeORM Entities**: https://typeorm.io/#/entities  
-**Use TypeORM with NEstJS**: https://docs.nestjs.com/techniques/database
+**Using TypeORM with NestJS**: https://docs.nestjs.com/techniques/database
 
-### Chat ans WebSocket
-**Socket.IO official documentation**: https://socket.io/docs/v4
+### Chat & WebSocket
+**Socket.IO official documentation**: https://socket.io/docs/v4  
 **Build a Real-time Chat App with Vue 3, Socket.io and Nodejs**: https://masteringbackend.com/posts/build-a-real-time-chat-app-with-vue-3-socket-io-and-nodejs/
 
 ### Generals
