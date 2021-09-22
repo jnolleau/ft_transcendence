@@ -14,7 +14,7 @@ async function run(id: number) {
     throw new Error('The user doesnt exist into database, cannot update')
   }
   userToUpdate.firstname = "Bla";
-  return await userRepository.save(userToUpdate);
+  return userRepository.save(userToUpdate);
 }
 
 let argv = process.argv;
