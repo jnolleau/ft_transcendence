@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { Strategy } from 'passport-42';
+import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class FortyTwoOauthGuard extends AuthGuard(Strategy) {}
+export class FortyTwoOauthGuard extends AuthGuard('42') { }
